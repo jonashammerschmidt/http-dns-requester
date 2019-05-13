@@ -7,7 +7,7 @@ export class HttpsRequester extends Requester {
   private CAs: string[] = [];
   private isCAInUse = false;
   
-  private rejectUnauthorized = false;
+  private rejectUnauthorized = true;
 
   constructor(host: string, port?: string) {
     super(host, port || "443");
