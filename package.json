@@ -1,0 +1,33 @@
+{
+  "name": "http-dns-requester",
+  "version": "1.0.0",
+  "description": "A NodeJS wrapper to perform DNS resolution and HTTP/HTTPS requests with custom certificate authorities.\r Nice for container communication.",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "request": "^2.88.0"
+  },
+  "devDependencies": {
+    "@types/node": "^10.11.6",
+    "@types/request": "^2.48.1",
+    "typescript": "^3.1.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joham97/http-dns-requester.git"
+  },
+  "keywords": [
+    "HTTP",
+    "HTTPS",
+    "DNS",
+    "CA",
+    "Certificate Authorities"
+  ],
+  "author": "Jonas Hammerschmidt",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/joham97/http-dns-requester/issues"
+  },
+  "homepage": "https://github.com/joham97/http-dns-requester#readme"
+}
