@@ -1,2 +1,2 @@
-export { HttpRequester } from "./requester/http";
-export { HttpsRequester } from "./requester/https";
+export { HttpRequester } from "./http";
+export { HttpsRequester } from "./https";

@@ -6,6 +6,8 @@ export class HttpsRequester extends Requester {
 
   private CAs: string[] = [];
   private isCAInUse = false;
+  
+  private rejectUnauthorized = false;
 
   constructor(host: string, port?: string) {
     super(host, port || "443");
@@ -18,6 +20,10 @@ export class HttpsRequester extends Requester {
 
   public useProxy(proxyUrl: string): void {
     super.useProxy(new HttpsProxyAgent(proxyUrl));
+  }
+
+  public setRejectUnauthorized(value: boolean) {
+    this.rejectUnauthorized = value;
   }
 
   protected async request(path: string, method: string, body: any): Promise<any> {
@@ -41,7 +47,7 @@ export class HttpsRequester extends Requester {
       path: path,
       method: method,
       port: this.port,
-      rejectUnauthorized: this.isCAInUse
+      rejectUnauthorized: this.rejectUnauthorized
     };
 
     if (this.isCAInUse) {
