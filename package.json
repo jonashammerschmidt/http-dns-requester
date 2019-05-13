@@ -3,15 +3,16 @@
   "version": "1.0.0",
   "description": "A NodeJS wrapper to perform DNS resolution and HTTP/HTTPS requests with custom certificate authorities.\r Nice for container communication.",
   "scripts": {
+    "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
     "request": "^2.88.0"
   },
   "devDependencies": {
-    "@types/node": "^10.11.6",
+    "@types/node": "^12.0.0",
     "@types/request": "^2.48.1",
-    "typescript": "^3.1.2"
+    "typescript": "^3.4.5"
   },
   "repository": {
     "type": "git",

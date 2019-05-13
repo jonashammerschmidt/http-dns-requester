@@ -13,19 +13,19 @@ export class HttpRequester {
     this.hostIP = host;
   }
 
-  public async get(path, body?: any): Promise<any> {
+  public async get(path: string, body?: any): Promise<any> {
     return this.httpRequest(path, 'GET', body);
   }
 
-  public async post(path, body?: any): Promise<any> {
+  public async post(path: string, body?: any): Promise<any> {
     return this.httpRequest(path, 'POST', body);
   }
 
-  public async put(path, body?: any): Promise<any> {
+  public async put(path: string, body?: any): Promise<any> {
     return this.httpRequest(path, 'PUT', body);
   }
 
-  public async delete(path, body?: any): Promise<any> {
+  public async delete(path: string, body?: any): Promise<any> {
     return this.httpRequest(path, 'DELETE', body);
   }
 
@@ -46,11 +46,11 @@ export class HttpRequester {
     });
   }
 
-  private async httpRequest(path, method, body: any): Promise<any> {
+  private async httpRequest(path: string, method: string, body: any): Promise<any> {
     return new Promise<any>((resolve, reject) => {
       var req = http.request(this.getHttpOptions(path, method), (res: any) => {
-        const chunks = [];
-        res.on('data', data => chunks.push(data))
+        const chunks: any = [];
+        res.on('data', (data: any) => chunks.push(data))
         res.on('end', () => {
           let resBody = Buffer.concat(chunks).toString();
           if (res.headers['content-type'].includes('application/json')) {

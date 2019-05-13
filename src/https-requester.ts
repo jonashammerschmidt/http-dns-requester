@@ -7,7 +7,7 @@ export class HttpsRequester {
   private hostIP: string;
   private port: string;
 
-  private CAs: string[];
+  private CAs: string[] = [];
   private isCAInUse = false;
 
   constructor(host: string, port: string) {
@@ -16,19 +16,19 @@ export class HttpsRequester {
     this.hostIP = host;
   }
 
-  public async get(path, body?: any): Promise<any> {
+  public async get(path: string, body?: any): Promise<any> {
     return this.httpsRequest(path, 'GET', body);
   }
 
-  public async post(path, body?: any): Promise<any> {
+  public async post(path: string, body?: any): Promise<any> {
     return this.httpsRequest(path, 'POST', body);
   }
 
-  public async put(path, body?: any): Promise<any> {
+  public async put(path: string, body?: any): Promise<any> {
     return this.httpsRequest(path, 'PUT', body);
   }
 
-  public async delete(path, body?: any): Promise<any> {
+  public async delete(path: string, body?: any): Promise<any> {
     return this.httpsRequest(path, 'DELETE', body);
   }
 
@@ -54,18 +54,18 @@ export class HttpsRequester {
     });
   }
 
-  private async httpsRequest(path, method, body: any): Promise<any> {
+  private async httpsRequest(path: string, method: string, body: any): Promise<any> {
     return new Promise<any>((resolve, reject) => {
       var req = https.request(this.getHttpsOptions(path, method), (res: any) => {
-        const chunks = [];
-            res.on('data', data => chunks.push(data))
-            res.on('end', () => {
-                let resBody = Buffer.concat(chunks).toString();
-                if (res.headers['content-type'].includes('application/json')){
-                  resBody = JSON.parse(resBody);
-                }
-                resolve(resBody)
-            })
+        const chunks: any[] = [];
+        res.on('data', (data: any) => chunks.push(data))
+        res.on('end', () => {
+          let resBody = Buffer.concat(chunks).toString();
+          if (res.headers['content-type'].includes('application/json')) {
+            resBody = JSON.parse(resBody);
+          }
+          resolve(resBody)
+        })
       });
       req.on('error', reject);
       if (body) {
