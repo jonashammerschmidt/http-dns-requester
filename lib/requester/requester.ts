@@ -9,9 +9,9 @@ export abstract class Requester {
     protected proxyAgent: any;
     protected isProxyInUse = false;
 
-    constructor(host: string, port: string) {
+    constructor(host: string, port?: string) {
         this.host = host;
-        this.port = port;
+        this.port = port!;
         this.hostIP = host;
     }
 

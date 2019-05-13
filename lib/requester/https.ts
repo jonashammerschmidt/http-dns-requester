@@ -7,8 +7,8 @@ export class HttpsRequester extends Requester {
   private CAs: string[] = [];
   private isCAInUse = false;
 
-  constructor(host: string, port: string) {
-    super(host, port);
+  constructor(host: string, port?: string) {
+    super(host, port || "443");
   }
 
   public useCAs(CAs: string[]) {

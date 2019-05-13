@@ -4,8 +4,8 @@ const HttpProxyAgent = require('http-proxy-agent');
 
 export class HttpRequester extends Requester {
 
-  constructor(host: string, port: string) {
-    super(host, port);
+  constructor(host: string, port?: string) {
+    super(host, port || "80");
   }
 
   public useProxy(proxyUrl: string): void {
