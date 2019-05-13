@@ -1,12 +1,17 @@
 import * as dns from 'dns';
 import * as http from 'http';
 import * as https from 'https';
+const HttpProxyAgent = require('http-proxy-agent');
+const HttpsProxyAgent = require('https-proxy-agent');
 
 export class HttpRequester {
 
   private host: string;
   private hostIP: string;
   private port: string;
+
+  private proxyAgent: any;
+  private isProxyInUse = false;
 
   constructor(host: string, port: string) {
     this.host = host;
@@ -28,6 +33,11 @@ export class HttpRequester {
 
   public async delete(path: string, body?: any): Promise<any> {
     return this.httpRequest(path, 'DELETE', body);
+  }
+
+  public useProxy(proxyUrl: string): void {
+    this.isProxyInUse = true;
+    this.proxyAgent = new HttpProxyAgent(proxyUrl);
   }
 
   public performDnsResolve(onDone: (hostname: string) => void) {
@@ -76,6 +86,10 @@ export class HttpRequester {
       port: this.port
     };
 
+    if (this.isProxyInUse) {
+      options.agent = this.proxyAgent;
+    }
+
     return options;
   }
 }
@@ -88,6 +102,9 @@ export class HttpsRequester {
 
   private CAs: string[] = [];
   private isCAInUse = false;
+
+  private proxyAgent: any;
+  private isProxyInUse = false;
 
   constructor(host: string, port: string) {
     this.host = host;
@@ -114,6 +131,11 @@ export class HttpsRequester {
   public useCAs(CAs: string[]) {
     this.isCAInUse = true;
     this.CAs = CAs;
+  }
+
+  public useProxy(proxyUrl: string): void {
+    this.isProxyInUse = true;
+    this.proxyAgent = new HttpsProxyAgent(proxyUrl);
   }
 
   public performDnsResolve(onDone: (hostname: string) => void) {
@@ -165,6 +187,10 @@ export class HttpsRequester {
 
     if (this.isCAInUse) {
       options.ca = this.CAs;
+    }
+
+    if (this.isProxyInUse) {
+      options.agent = this.proxyAgent;
     }
 
     return options;

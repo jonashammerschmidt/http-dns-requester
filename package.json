@@ -1,6 +1,6 @@
 {
   "name": "http-dns-requester",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "A NodeJS wrapper to perform DNS resolution and HTTP/HTTPS requests with custom certificate authorities.\r Nice for container communication.",
   "main": "dist/main.js",
   "types": "dist/main.d.ts",
@@ -9,6 +9,8 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
+    "http-proxy-agent": "^2.1.0",
+    "https-proxy-agent": "^2.2.1",
     "request": "^2.88.0"
   },
   "devDependencies": {
