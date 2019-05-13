@@ -1,7 +1,9 @@
 {
   "name": "http-dns-requester",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A NodeJS wrapper to perform DNS resolution and HTTP/HTTPS requests with custom certificate authorities.\r Nice for container communication.",
+  "main": "dist/main.js",
+  "types": "dist/main.d.ts",
   "scripts": {
     "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
