@@ -1,4 +1,8 @@
-/lib/
+/src/
+/test/
+/.nyc_output/
+/code-test-coverage/
 /.gitignore
 /tsconfig.json
 /tslint.json
+/test-results.xml

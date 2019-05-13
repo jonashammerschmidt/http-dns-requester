@@ -42,6 +42,11 @@ typings/
 # Distribution
 dist/
 
+# Tests
+.nyc_output/
+code-test-coverage/
+test-results.xml
+
 # Optional npm cache directory
 .npm
 
