@@ -1,6 +1,6 @@
 {
   "name": "http-dns-requester",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "A NodeJS wrapper to perform DNS resolution and HTTP/HTTPS requests with custom certificate authorities.\r Nice for container communication.",
   "main": "dist/main.js",
   "types": "dist/main.d.ts",

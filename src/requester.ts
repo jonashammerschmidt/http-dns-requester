@@ -12,6 +12,14 @@ export abstract class Requester {
     constructor(host: string, port?: string) {
         this.host = host;
         this.port = port!;
+        
+        // If port is contained in host
+        const hostSplit = this.host.split(':');
+        if(hostSplit.length === 2) {
+            this.host = hostSplit[0];
+            this.port = hostSplit[1];
+        }
+        
         this.hostIP = host;
     }
 
