@@ -8,7 +8,7 @@ describe('HttpRequester', () => {
         const httpRequester = new HttpRequester("www.google.de");
 
         // Act
-        const result = await httpRequester.get("/imghp");
+        const result: string = await httpRequester.get<string>("/imghp");
 
         // Assert
         // Assert the resultbody not to be null
