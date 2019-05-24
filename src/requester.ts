@@ -36,21 +36,29 @@ export abstract class Requester {
         this.proxyAgent = proxyAgent;
     }
 
-    public performDnsResolve(onDone: (hostname: string) => void) {
-        if (!this.host) {
-            throw "Please provide a container name";
-        }
-
-        if (this.host !== this.host.toLowerCase()) {
-            console.log("Warning: Your output base url contains some uppercase letters. The dns lookup may struggle with it.");
-        }
-
-        dns.lookup(this.host, (err, address) => {
-            if (err !== undefined) {
-                this.hostIP = address;
-                onDone(address);
+    public performDnsResolve(): Promise<string> {
+        return new Promise<string>((resolve, reject) => {
+            if (!this.host) {
+                reject("Please provide a container name");
             }
+
+            if (this.host !== this.host.toLowerCase()) {
+                console.log("Warning: Your output base url contains some uppercase letters. The dns lookup may struggle with it.");
+            }
+
+            dns.lookup(this.host, (err, address) => {
+                if (err !== undefined) {
+                    this.hostIP = address;
+                    resolve(address);
+                } else {
+                    reject(err);
+                }
+            });
         });
+    }
+
+    public getHostIp(): string {
+        return this.hostIP;
     }
 
     protected abstract async request(path: string, method: string, body: any): Promise<any>;
@@ -59,11 +67,11 @@ export abstract class Requester {
         const chunks: any = [];
         res.on('data', (data: any) => chunks.push(data))
         res.on('end', () => {
-          let resBody = Buffer.concat(chunks).toString();
-          if (res.headers['content-type'].includes('application/json')) {
-            resBody = JSON.parse(resBody);
-          }
-          resolve(resBody);
+            let resBody = Buffer.concat(chunks).toString();
+            if (res.headers['content-type'].includes('application/json')) {
+                resBody = JSON.parse(resBody);
+            }
+            resolve(resBody);
         })
     }
 }
