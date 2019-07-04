@@ -12,9 +12,9 @@ export class HttpRequester extends Requester {
     super.useProxy(new HttpProxyAgent(proxyUrl));
   }
 
-  protected async request(path: string, method: string, body: any): Promise<any> {
+  protected async request(path: string, method: string, body: string, json: boolean): Promise<any> {
     return new Promise<any>((resolve, reject) => {
-      const req = http.request(this.getHttpOptions(path, method), (res: any) => {
+      const req = http.request(this.getHttpOptions(path, method, body, json), (res: any) => {
         this.HandleResponse(res, (response: any) => {
           resolve(response);
         });
@@ -27,8 +27,14 @@ export class HttpRequester extends Requester {
     });
   }
 
-  private getHttpOptions(path: string, method: string): http.RequestOptions {
+  private getHttpOptions(path: string, method: string, body: string, json: boolean): http.RequestOptions {
     const options: http.RequestOptions = {
+      headers: (json) ? {
+        'Content-Length': Buffer.byteLength(body),
+        'Content-Type': 'application/json'
+      }: {
+        'Content-Length': (body) ? Buffer.byteLength(body) : 0
+      },
       host: this.hostIP,
       method,
       path,

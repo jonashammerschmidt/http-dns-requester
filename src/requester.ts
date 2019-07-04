@@ -24,35 +24,35 @@ export abstract class Requester {
     }
 
     public async get(path: string, body?: string): Promise<any> {
-        return this.request(path, 'GET', body);
+        return this.request(path, 'GET', (body) ? body : "", false);
     }
 
     public async post(path: string, body?: string): Promise<any> {
-        return this.request(path, 'POST', body);
+        return this.request(path, 'POST', (body) ? body : "", false);
     }
 
     public async put(path: string, body?: string): Promise<any> {
-        return this.request(path, 'PUT', body);
+        return this.request(path, 'PUT', (body) ? body : "", false);
     }
 
     public async delete(path: string, body?: string): Promise<any> {
-        return this.request(path, 'DELETE', body);
+        return this.request(path, 'DELETE', (body) ? body : "", false);
     }
 
     public async getJSON(path: string, body: any): Promise<any> {
-        return this.request(path, 'GET', JSON.stringify(body));
+        return this.request(path, 'GET', JSON.stringify(body), true);
     }
 
     public async postJSON(path: string, body: any): Promise<any> {
-        return this.request(path, 'POST', JSON.stringify(body));
+        return this.request(path, 'POST', JSON.stringify(body), true);
     }
 
     public async putJSON(path: string, body: any): Promise<any> {
-        return this.request(path, 'PUT', JSON.stringify(body));
+        return this.request(path, 'PUT', JSON.stringify(body), true);
     }
 
     public async deleteJSON(path: string, body: any): Promise<any> {
-        return this.request(path, 'DELETE', JSON.stringify(body));
+        return this.request(path, 'DELETE', JSON.stringify(body), true);
     }
 
     public useProxy(proxyAgent: any): void {
@@ -85,7 +85,7 @@ export abstract class Requester {
         return this.hostIP;
     }
 
-    protected abstract async request(path: string, method: string, body: any): Promise<any>;
+    protected abstract async request(path: string, method: string, body: string, json: boolean): Promise<any>;
 
     protected HandleResponse(res: any, resolve: (resBody: any) => void) {
         const chunks: any = [];
