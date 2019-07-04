@@ -26,11 +26,11 @@ export class HttpsRequester extends Requester {
     this.rejectUnauthorized = value;
   }
 
-  protected async request<T>(path: string, method: string, body: any): Promise<T> {
+  protected async request(path: string, method: string, body: any): Promise<any> {
     return new Promise<any>((resolve, reject) => {
       const req = https.request(this.getHttpsOptions(path, method), (res: any) => {
-        this.HandleResponse(res, (resBody: T) => {
-          resolve(resBody);
+        this.HandleResponse(res, (response: any) => {
+          resolve(response);
         });
       });
       req.on('error', reject);

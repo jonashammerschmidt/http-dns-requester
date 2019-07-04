@@ -23,20 +23,20 @@ export abstract class Requester {
         this.hostIP = host;
     }
 
-    public async get<T>(path: string, body?: any): Promise<T> {
-        return this.request<T>(path, 'GET', body);
+    public async get(path: string, body?: any): Promise<any> {
+        return this.request(path, 'GET', body);
     }
 
-    public async post<T>(path: string, body?: any): Promise<T> {
-        return this.request<T>(path, 'POST', body);
+    public async post(path: string, body?: any): Promise<any> {
+        return this.request(path, 'POST', body);
     }
 
-    public async put<T>(path: string, body?: any): Promise<T> {
-        return this.request<T>(path, 'PUT', body);
+    public async put(path: string, body?: any): Promise<any> {
+        return this.request(path, 'PUT', body);
     }
 
-    public async delete<T>(path: string, body?: any): Promise<T> {
-        return this.request<T>(path, 'DELETE', body);
+    public async delete(path: string, body?: any): Promise<any> {
+        return this.request(path, 'DELETE', body);
     }
 
     public useProxy(proxyAgent: any): void {
@@ -69,21 +69,21 @@ export abstract class Requester {
         return this.hostIP;
     }
 
-    protected abstract async request<T>(path: string, method: string, body: any): Promise<T>;
+    protected abstract async request(path: string, method: string, body: any): Promise<any>;
 
     protected HandleResponse(res: any, resolve: (resBody: any) => void) {
         const chunks: any = [];
         res.on('data', (data: any) => chunks.push(data))
         res.on('end', () => {
             const resBody = Buffer.concat(chunks).toString();
-            console.log(res.headers);
             if (res && res.headers &&
                 res.headers['content-type'] &&
                 res.headers['content-type'].includes('application/json')) {
-                resolve(JSON.parse(resBody));
+                res.body = JSON.parse(resBody);
             } else {
-                resolve(resBody);
+                res.body = resBody;
             }
+            resolve(res);
         })
     }
 }

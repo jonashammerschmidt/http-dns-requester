@@ -12,11 +12,11 @@ export class HttpRequester extends Requester {
     super.useProxy(new HttpProxyAgent(proxyUrl));
   }
 
-  protected async request<T>(path: string, method: string, body: any): Promise<T> {
-    return new Promise<T>((resolve, reject) => {
+  protected async request(path: string, method: string, body: any): Promise<any> {
+    return new Promise<any>((resolve, reject) => {
       const req = http.request(this.getHttpOptions(path, method), (res: any) => {
-        this.HandleResponse(res, (resBody: T) => {
-          resolve(resBody);
+        this.HandleResponse(res, (response: any) => {
+          resolve(response);
         });
       });
       req.on('error', reject);

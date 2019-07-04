@@ -1,6 +1,6 @@
-import { HttpRequester } from './http';
-import 'mocha';
 import { expect } from 'chai';
+import 'mocha';
+import { HttpRequester } from './http';
 
 describe('Requester Base', () => {
     it('test dns resolve', (async () => {
