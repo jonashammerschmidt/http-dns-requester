@@ -23,20 +23,36 @@ export abstract class Requester {
         this.hostIP = host;
     }
 
-    public async get(path: string, body?: any): Promise<any> {
+    public async get(path: string, body?: string): Promise<any> {
         return this.request(path, 'GET', body);
     }
 
-    public async post(path: string, body?: any): Promise<any> {
+    public async post(path: string, body?: string): Promise<any> {
         return this.request(path, 'POST', body);
     }
 
-    public async put(path: string, body?: any): Promise<any> {
+    public async put(path: string, body?: string): Promise<any> {
         return this.request(path, 'PUT', body);
     }
 
-    public async delete(path: string, body?: any): Promise<any> {
+    public async delete(path: string, body?: string): Promise<any> {
         return this.request(path, 'DELETE', body);
+    }
+
+    public async getJSON(path: string, body: any): Promise<any> {
+        return this.request(path, 'GET', JSON.stringify(body));
+    }
+
+    public async postJSON(path: string, body: any): Promise<any> {
+        return this.request(path, 'POST', JSON.stringify(body));
+    }
+
+    public async putJSON(path: string, body: any): Promise<any> {
+        return this.request(path, 'PUT', JSON.stringify(body));
+    }
+
+    public async deleteJSON(path: string, body: any): Promise<any> {
+        return this.request(path, 'DELETE', JSON.stringify(body));
     }
 
     public useProxy(proxyAgent: any): void {

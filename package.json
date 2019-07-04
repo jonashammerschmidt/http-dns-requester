@@ -1,6 +1,6 @@
 {
   "name": "http-dns-requester",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "A NodeJS wrapper to perform DNS resolution and HTTP/HTTPS requests with custom certificate authorities.\r Nice for container communication.",
   "main": "dist/main.js",
   "types": "dist/main.d.ts",
@@ -15,17 +15,17 @@
   },
   "devDependencies": {
     "@types/chai": "^4.1.7",
-    "@types/mocha": "^5.2.6",
-    "@types/node": "^12.0.0",
+    "@types/mocha": "^5.2.7",
+    "@types/node": "^12.0.12",
     "@types/request": "^2.48.1",
     "chai": "^4.2.0",
     "mocha": "^6.1.4",
-    "mocha-junit-reporter": "^1.22.0",
-    "nyc": "^13.3.0",
+    "mocha-junit-reporter": "^1.23.0",
+    "nyc": "^14.1.1",
     "source-map-support": "^0.5.12",
-    "ts-node": "^8.1.0",
+    "ts-node": "^8.3.0",
     "tslint-config-prettier": "^1.18.0",
-    "typescript": "^3.4.5"
+    "typescript": "^3.5.2"
   },
   "nyc": {
     "include": [
