@@ -28,12 +28,17 @@ export class HttpRequester extends Requester {
   }
 
   private getHttpOptions(path: string, method: string, body: string, json: boolean): http.RequestOptions {
+    const contentHeader = (json) ? {
+      'Content-Length': Buffer.byteLength(body),
+      'Content-Type': 'application/json'
+    } : {
+      'Content-Length': (body) ? Buffer.byteLength(body) : 0
+    };
+
     const options: http.RequestOptions = {
-      headers: (json) ? {
-        'Content-Length': Buffer.byteLength(body),
-        'Content-Type': 'application/json'
-      }: {
-        'Content-Length': (body) ? Buffer.byteLength(body) : 0
+      headers: {
+        ...contentHeader,
+        ...this.header
       },
       host: this.hostIP,
       method,

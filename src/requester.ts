@@ -9,6 +9,8 @@ export abstract class Requester {
     protected proxyAgent: any;
     protected isProxyInUse = false;
 
+    protected header: any;
+
     constructor(host: string, port?: string) {
         this.host = host;
         this.port = port!;
@@ -83,6 +85,10 @@ export abstract class Requester {
 
     public getHostIp(): string {
         return this.hostIP;
+    }
+
+    public setHeader(header: any) {
+        this.header = header;
     }
 
     protected abstract async request(path: string, method: string, body: string, json: boolean): Promise<any>;

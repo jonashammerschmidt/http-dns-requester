@@ -6,7 +6,7 @@ export class HttpsRequester extends Requester {
 
   private CAs: string[] = [];
   private isCAInUse = false;
-  
+
   private rejectUnauthorized = true;
 
   constructor(host: string, port?: string) {
@@ -42,12 +42,17 @@ export class HttpsRequester extends Requester {
   }
 
   private getHttpsOptions(path: string, method: string, body: string, json: boolean): https.RequestOptions {
+    const contentHeader = (json) ? {
+      'Content-Length': Buffer.byteLength(body),
+      'Content-Type': 'application/json'
+    } : {
+      'Content-Length': (body) ? Buffer.byteLength(body) : 0
+    };
+
     const options: https.RequestOptions = {
-      headers: (json) ? {
-        'Content-Length': Buffer.byteLength(body),
-        'Content-Type': 'application/json'
-      }: {
-        'Content-Length': (body) ? Buffer.byteLength(body) : 0
+      headers: {
+        ...contentHeader,
+        ...this.header
       },
       host: this.hostIP,
       method,
